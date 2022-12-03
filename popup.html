@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                padding: 10px;
+                background-color: rgba(128, 128, 128, 0.669);
+                border: 2px solid black;
+                border-radius: 10px;
+            }
+            .wrapper-img {
+                display: flex;
+                justify-content: center;
+            }
+            .wrapper-input {
+                display: flex;
+                justify-content: center;
+                padding: 5px;
+            }
+            label {
+                display: flex;
+                justify-content: center;
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+        </style>
+        <script src="scripts/popup.js" type="text/javascript" defer></script>
+    </head>
+    <body>
+        <div class="wrapper-img">
+            <img src="./images/icon-48.png" />
+        </div>
+        <label for="delay">Delay threshhold</label>
+        <div class="wrapper-input">
+            <input id="delay" type="number" name="delay" placeholder="Enter the delay" />
+        </div>
+    </body>
+</html>
