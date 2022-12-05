@@ -24,7 +24,7 @@
                 font-weight: 600;
             }
         </style>
-        <script src="scripts/popup.js" type="text/javascript" defer></script>
+        <script src="scripts/popup.js" type="module" defer></script>
     </head>
     <body>
         <div class="wrapper-img">
@@ -32,7 +32,7 @@
         </div>
         <label for="delay">Delay threshhold</label>
         <div class="wrapper-input">
-            <input id="delay" type="number" name="delay" placeholder="Enter the delay" />
+            <input id="delay" type="number" name="delay" min="1" placeholder="Enter the delay in second" />
         </div>
     </body>
 </html>

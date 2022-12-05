@@ -1,21 +1,24 @@
 console.log("%c[Auto Refresh Stream]", "color: purple", "Waiting for the stat count to show up");
 
-// const $resetBtn = document.querySelector(
-//     "#channel-player > div > div.Layout-sc-1xcs6mc-0.lfucH.player-controls__right-control-group > div.ffz--player-reset.tw-inline-flex.tw-relative.ffz-il-tooltip__container > button > div > div > figure"
-// );
-let $delayThreshhold;
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    $delayThreshhold = request.data || {};
-    console.log("%c[Auto Refresh Stream]", "color: purple", "data received \n", "delay value: ", $delayThreshhold);
+// Watch for changes to the user's delayThreshhold & apply them
+let delayThreshhold;
+chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === "sync" && changes.delayThreshhold?.newValue) {
+        delayThreshhold = changes.delayThreshhold.newValue.value;
+        console.log("%c[Auto Refresh Stream]\n", "color: purple", "Set delayThreshhold: ", delayThreshhold);
+    }
 });
-waitForElm("button:nth-child(4) > div > span.ffz-stat-text").then((elm) => {
-    console.log("%c[Auto Refresh Stream]", "color: purple", "the stat count is here!");
+
+// First the function wait for the promise then we set a timeout of 60 seconds so the adblocker i use can block ads whitout the page refreshing because the delay is too high.
+// Finally i check every 5 seconds if the delay is less than the delaythrehhold.
+waitForElement("button:nth-child(4) > div > span.ffz-stat-text").then((element) => {
+    console.log("%c[Auto Refresh Stream]", "color: purple", "the delay count is here!");
     setInterval(() => {
-        let $delay = parseFloat(elm.textContent);
         // console.log("%c[Auto Refresh Stream]", "color: purple", $delay);
         setTimeout((delay) => {
-            delay = $delay;
-            if (delay > $delayThreshhold) {
+            let delayValue = parseFloat(element.textContent);
+            delay = delayValue;
+            if (delay > delayThreshhold) {
                 // console.log("%c[Auto Refresh Stream]", "color: purple", $delay);
                 console.warn("%c[Auto Refresh Stream]", "color: purple", "Refresh the stream");
                 location.reload();
@@ -24,7 +27,12 @@ waitForElm("button:nth-child(4) > div > span.ffz-stat-text").then((elm) => {
     }, 5000);
 });
 
-function waitForElm(selector) {
+/**
+ *
+ * @param {*} selector
+ * @returns A promise containing the element wanted
+ */
+function waitForElement(selector) {
     return new Promise((resolve) => {
         if (document.querySelector(selector)) {
             return resolve(document.querySelector(selector));

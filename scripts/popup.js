@@ -1,8 +1,13 @@
-document.getElementById("delay").addEventListener("change", function () {
-    console.log("hit");
-    const $delayThreshhold = this.value;
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { data: $delayThreshhold });
-        console.log("%c[Auto Refresh Stream]", "color: purple", $delayThreshhold);
-    });
+const delayThreshhold = {};
+const $delay = document.getElementById("delay");
+
+// Persist every changes on the delayThreshhold object.
+$delay.addEventListener("change", function () {
+    delayThreshhold.value = this.value;
+    chrome.storage.sync.set({ delayThreshhold });
 });
+
+// Set the value input with the delayThreshhold get from the chrome storage sync
+const data = await chrome.storage.sync.get("delayThreshhold");
+Object.assign(delayThreshhold, data.delayThreshhold);
+$delay.value = delayThreshhold.value;

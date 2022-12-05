@@ -13,7 +13,7 @@
         "default_popup": "popup.html",
         "default_title": "Configure delay"
     },
-    "permissions": ["activeTab"],
+    "permissions": ["activeTab", "storage"],
     "content_scripts": [
         {
             "js": ["scripts/content.js"],
