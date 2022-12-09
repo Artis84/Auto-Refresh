@@ -49,18 +49,15 @@ document.onreadystatechange = () => {
             const checkStreamDelay = async () => {
                 const options = {};
                 const data = await getOptions();
+                Object.assign(options, data.options);
                 const $playButton = document.querySelector(
                     "#channel-player > div > div.Layout-sc-1xcs6mc-0.kEHWUU.player-controls__left-control-group > div.Layout-sc-1xcs6mc-0.ScAttachedTooltipWrapper-sc-1ems1ts-0.deuUPa > button"
                 );
-                Object.assign(options, data.options);
-                delayInterval = parseInt(options.delayInterval);
-                $playButton.addEventListener("click", function () {
-                    console.log("Click");
-                });
                 const $delay = document.querySelector(
                     "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content > div > div > table > tbody > tr:nth-child(6) > td:nth-child(2)"
                 ).textContent;
                 let delay = parseInt($delay);
+                delayInterval = parseInt(options.delayInterval);
                 if (delay > options.delayThreshhold) {
                     console.log("%c[Auto Refresh Stream]", "color: purple", "Refresh the stream");
                     $playButton.click();
@@ -68,7 +65,7 @@ document.onreadystatechange = () => {
                 }
             };
 
-            function waitForElm(selector) {
+            const waitForElm = (selector) => {
                 return new Promise((resolve) => {
                     if (document.querySelector(selector)) {
                         return resolve(document.querySelector(selector));
@@ -86,7 +83,7 @@ document.onreadystatechange = () => {
                         subtree: true,
                     });
                 });
-            }
+            };
 
             console.log("%c[Auto Refresh Stream]", "color: purple", "Waiting for the setting button to show up");
 
