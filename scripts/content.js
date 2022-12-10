@@ -42,14 +42,27 @@ document.onreadystatechange = () => {
             document
                 .querySelector("#channel-player > div > div.Layout-sc-1xcs6mc-0.lfucH.player-controls__right-control-group > div:nth-child(1) > div:nth-child(2) > div > button > div > div > div")
                 .click();
-            document.querySelector(
-                "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content"
-            ).style.display = "none";
+        };
+
+        const getDisplayMenuValue = () => {
+            const attribute = document.createAttribute("id");
+            attribute.value = "menu";
+            document
+                .querySelector(
+                    "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content"
+                )
+                .setAttributeNode(attribute);
+            const $menu = document.getElementById("menu");
+            const displayMenuValue = getComputedStyle($menu, null).display;
+            if (displayMenuValue !== "none") {
+                console.log("%c[Auto Refresh Stream]", "color: purple", "Advanced menu was hide");
+                $menu.style.display = "none";
+            }
         };
 
         const checkStreamDelay = async () => {
             const options = {};
-            const data = chrome.storage.sync.get("options");
+            const data = await chrome.storage.sync.get("options");
             Object.assign(options, data.options);
             const $playButton = document.querySelector(
                 "#channel-player > div > div.Layout-sc-1xcs6mc-0.kEHWUU.player-controls__left-control-group > div.Layout-sc-1xcs6mc-0.ScAttachedTooltipWrapper-sc-1ems1ts-0.deuUPa > button"
@@ -100,9 +113,21 @@ document.onreadystatechange = () => {
                 location.reload();
             }
 
+            setInterval(() => {
+                waitForElm("#channel-player > div > div.Layout-sc-1xcs6mc-0.lfucH.player-controls__right-control-group > div:nth-child(1) > div:nth-child(2) > div > button > div > div > div").then(
+                    () => {
+                        getDisplayMenuValue();
+                    }
+                );
+            }, 1000);
+
             (function ticker() {
-                checkStreamDelay();
-                setTimeout(ticker, delayInterval);
+                waitForElm(
+                    "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content"
+                ).then(() => {
+                    checkStreamDelay();
+                    setTimeout(ticker, delayInterval);
+                });
             })();
 
             console.log("%c[Auto Refresh Stream]", "color: purple", "Done !");
