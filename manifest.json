@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Auto Refresh Stream",
     "version": "1.0",
-    "description": "Auto Refresh the twitch stream when a delay is hit.",
+    "description": "Auto Refresh the twitch stream when a delay threshhold is hit.",
     "icons": {
         "16": "images/icon-16.png",
         "32": "images/icon-32.png",
