@@ -1,85 +1,87 @@
 document.onreadystatechange = () => {
     if (document.readyState === "complete") {
-        // Watch for changes to the user's delayThreshhold & apply them
-        chrome.storage.onChanged.addListener((changes, area) => {
-            if (area === "sync" && changes.options.delayThreshhold) {
-                let newDelayThreshhold = changes.options.delayThreshhold;
-                console.log("%c[Auto Refresh Stream]\n", "color: purple", "Set delayThreshhold: ", newDelayThreshhold);
-            }
-        });
+        const editChat = () => {
+            let nullCount = 0;
+            const primaryCOlor = "#260c5a";
+            const secondaryCOlor = "#9147ff";
 
-        chrome.storage.onChanged.addListener((changes, area) => {
-            if (area === "sync" && changes.options.delayThreshhold) {
-                let newDelayInterval = changes.options.delayThreshhold;
-                console.log("%c[Auto Refresh Stream]\n", "color: purple", "Set delayThreshhold: ", newDelayInterval);
-            }
-        });
+            console.log("%c[BKTV]", "color: green", "Initialize extension");
+            document.querySelector("#app > div.main-html.flex.h-screen.w-screen.flex-col.overflow-hidden > div > div > nav").style.backgroundColor = primaryCOlor;
+            document.querySelector("#chatroom-footer > div > div > div").style.backgroundColor = "#493375";
 
-        // const getOptions = async () => {
-        //     if (typeof chrome.app.isInstalled !== "undefined") {
-        //         return await chrome.storage.sync.get("options");
-        //     }
-        // };
+            document.querySelector("#main-view > div > div > div.flex.h-full.w-full.grow.items-stretch.overflow-hidden > div > div.livestream-fold > div:nth-child(2)").style.backgroundColor =
+                primaryCOlor;
+            document.querySelector("#app > div.main-html.flex.h-screen.w-screen.flex-col.overflow-hidden > div > div > div > div:nth-child(1) > div").style.backgroundColor = primaryCOlor;
+            document.querySelector("#app > div > div > div > nav > div > div > div > div > div > form > div > div").style.backgroundColor = "#493375";
+            if (document.querySelector("#headlessui-popover-button-8")) {
+                document.querySelector("#headlessui-popover-button-8").style.borderRadius = "4px";
+                document.querySelector("#headlessui-popover-button-8 > div > button").style.backgroundColor = secondaryCOlor;
+                document.querySelector("#headlessui-popover-button-5 > div > button").style.backgroundColor = "#53535f61";
+            } else if (document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1) > button") !== null) {
+                document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1) > button").style.backgroundColor =
+                    secondaryCOlor;
+                document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1) > button > div").style.color = "white";
+            } else document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > button").style.backgroundColor = secondaryCOlor;
 
-        // First the function wait for the promise then we set a timeout of 60 seconds so the adblocker
-        // can block ads whitout the page refreshing because the delay is too high.
-        // Finally i check every 5 seconds if the delay is less than the delaythrehhold.
-        const showMenu = () => {
-            console.log("%c[Auto Refresh Stream]", "color: purple", "Initialize extension");
+            if (document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1) > button") !== null)
+                document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1) > button").style.backgroundColor =
+                    secondaryCOlor;
+            else nullCount++;
+            document.querySelectorAll(".category-tag-component").forEach((element) => (element.style.backgroundColor = "#53535f61"));
+
             document
-                .querySelector("#channel-player > div > div.Layout-sc-1xcs6mc-0.lfucH.player-controls__right-control-group > div:nth-child(1) > div:nth-child(2) > div > button > div > div > div")
-                .click();
-            document
-                .querySelector(
-                    "body > div.ScReactModalBase-sc-26ijes-0.kXkHnj.tw-dialog-layer.tw-root--theme-dark > div > div > div > div > div > div > div > div:nth-child(2) > div:nth-child(4) > button > div > div.Layout-sc-1xcs6mc-0.fGCgaq"
-                )
-                .click();
-            document
-                .querySelector(
-                    "body > div.ScReactModalBase-sc-26ijes-0.kXkHnj.tw-dialog-layer.tw-root--theme-dark > div > div > div > div > div > div > div > div:nth-child(2) > div:nth-child(3) > div > div > label"
-                )
-                .click();
-            document
-                .querySelector("#channel-player > div > div.Layout-sc-1xcs6mc-0.lfucH.player-controls__right-control-group > div:nth-child(1) > div:nth-child(2) > div > button > div > div > div")
-                .click();
-            document.querySelector(
-                "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content > div > div > div > button"
-            ).style.display = "none";
+                .querySelectorAll("#app > div > div > div > div > div:nth-child(1) > div > div:nth-child(3) > div:nth-child(2) > a")
+                .forEach((element) => (element.style.backgroundColor = primaryCOlor));
+
+            document.querySelector("#main-view > div > div > div:nth-child(2) > div").style.width = "437px";
+            document.querySelector("#main-view > div > div > div > div > div:nth-child(2) > div").style.backgroundColor = primaryCOlor;
+            document.querySelector("#main-view > div > div > div > div > div:nth-child(2)").style.backgroundColor = primaryCOlor;
+            if (document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > button:nth-child(3)"))
+                document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > button:nth-child(3)").style.backgroundColor =
+                    secondaryCOlor;
+            else nullCount++;
+            document.querySelectorAll("#app > div > div > div > div > div:nth-child(1) > div > div:nth-child(2) > div > a").forEach((element) => (element.style.backgroundColor = primaryCOlor));
+            document.querySelector("#chatroom-top > div").style.backgroundColor = primaryCOlor;
+            if (document.querySelector(".quick-emotes-holder") !== null) document.querySelector(".quick-emotes-holder").remove();
+            else nullCount++;
+            document.querySelector("#chatroom > div:nth-child(even)").style.backgroundColor = primaryCOlor;
+            document.getElementById("chatroom-footer").style.backgroundColor = primaryCOlor;
+            document.querySelector("#chatroom-footer > div > div > div").style.backgroundColor = "#493375";
+            document.querySelector("#chatroom-footer > div > div > button").style.backgroundColor = secondaryCOlor;
+            document.querySelector("#app > div > div > div > div > div:nth-child(1) > div > div > div > div").click();
+            console.log("%c[BKTV]", "color: green", `Elements not present: ${nullCount}`);
+            console.log("%c[BKTV]", "color: green", "Initialization over");
         };
 
-        const hideMenu = () => {
-            const attribute = document.createAttribute("id");
-            attribute.value = "menu";
-            document
-                .querySelector(
-                    "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content > div > div"
-                )
-                .setAttributeNode(attribute);
-            const $menu = document.getElementById("menu");
-            const displayMenuValue = getComputedStyle($menu, null).display;
-            if (displayMenuValue !== "none") {
-                console.log("%c[Auto Refresh Stream]", "color: purple", "Advanced menu was hide");
-                $menu.style.display = "none";
-            }
-        };
+        const bigEmotes = () => {
+            const messages = document.querySelectorAll(".chat-entry > div > *");
 
-        const checkStreamDelay = async () => {
-            const $playButton = document.querySelector(
-                "#channel-player > div > div.Layout-sc-1xcs6mc-0.kEHWUU.player-controls__left-control-group > div.InjectLayout-sc-1i43xsx-0.dVOhMf > button > div > div > div"
-            );
-            const options = {};
-            const data = await chrome.storage.sync.get("options");
-            Object.assign(options, data.options);
-            const $delay = document.querySelector(
-                "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content > div > div > table > tbody > tr:nth-child(6) > td:nth-child(2)"
-            ).textContent;
-            let delay = parseInt($delay);
-            delayInterval = parseInt(options.delayInterval);
-            if (delay > options.delayThreshhold) {
-                console.log("%c[Auto Refresh Stream]", "color: purple", "Refresh the stream");
-                $playButton.click();
-                $playButton.click();
+            // Process each img element within the sub-element
+            for (const message of messages) {
+                const kickEmote = message.querySelector(".chat-emote-container");
+                if (kickEmote) {
+                    kickEmote.style.setProperty("width", "50px");
+                    kickEmote.style.setProperty("height", "50px");
+                }
             }
+            const seventvContainers = document.querySelectorAll("#chatroom > div > div > * > div > div > span:nth-child(3) > seventv-container:nth-child(2) > span > div ");
+            for (const seventvContainer of seventvContainers) {
+                seventvContainer.style.display = "inline-grid";
+                seventvContainer.style.verticalAlign = "middle";
+                seventvContainer.style.marginLeft = "0";
+                seventvContainer.style.marginRight = "0";
+                seventvContainer.classList.remove("seventv-emote-token");
+            }
+
+            const seventvEmotes = document.querySelectorAll("#chatroom > div > div > * > div > div > span:nth-child(3) > seventv-container:nth-child(2) > span > div > img");
+            for (const seventvEmote of seventvEmotes) {
+                seventvEmote.style.setProperty("min-width", "50px");
+                seventvEmote.style.setProperty("height", "50px");
+            }
+
+            requestAnimationFrame(() => {
+                bigEmotes();
+            });
         };
 
         const waitForElm = (selector) => {
@@ -102,49 +104,15 @@ document.onreadystatechange = () => {
             });
         };
 
-        console.log("%c[Auto Refresh Stream]", "color: purple", "Waiting for the setting button to show up");
-
-        let delayInterval;
-        waitForElm("#channel-player > div > div.Layout-sc-1xcs6mc-0.lfucH.player-controls__right-control-group > div:nth-child(1) > div:nth-child(2) > div > button > div > div > div").then(() => {
-            console.log("%c[Auto Refresh Stream]", "color: purple", "Setting button is here !");
-            delayInterval = 5000;
-
-            try {
-                showMenu();
-            } catch (error) {
-                console.error("%c[Auto Refresh Stream]", "color: purple", "Error during initialization: ", error.message);
-                location.reload();
-            }
-
-            setInterval(() => {
-                waitForElm("#channel-player > div > div.Layout-sc-1xcs6mc-0.lfucH.player-controls__right-control-group > div:nth-child(1) > div:nth-child(2) > div > button > div > div > div").then(
-                    () => {
-                        hideMenu();
-                    }
-                );
-            }, 1000);
-
-            (function ticker() {
-                waitForElm(
-                    "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.tw-root--theme-dark.tw-root--hover > div > div.simplebar-scroll-content"
-                ).then(() => {
-                    try {
-                        checkStreamDelay();
-                    } catch (error) {
-                        console.error("%c[Auto Refresh Stream]", "color: purple", "Error during the delay check: ", error.message);
-                        location.reload();
-                    }
-                    setTimeout(ticker, delayInterval);
-                });
-            })();
-
-            console.log("%c[Auto Refresh Stream]", "color: purple", "Done !");
-        });
-        waitForElm(
-            "#root > div > div.Layout-sc-1xcs6mc-0.kBprba > div > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-1i43xsx-0.persistent-player > div > div.Layout-sc-1xcs6mc-0.video-player > div.Layout-sc-1xcs6mc-0.kUDtlR.video-player__container.video-player__container--resize-calc > div.Layout-sc-1xcs6mc-0.video-ref > div > div > div.Layout-sc-1xcs6mc-0.fYzbEF > div.Layout-sc-1xcs6mc-0.dHpImr"
-        ).then(() => {
-            console.log("%c[Auto Refresh Stream]", "color: purple", "Reset needed !");
+        try {
+            waitForElm("#main-view > div > div > div > div > div:nth-child(even) > div > div > div > div > div").then(() => {
+                console.log("%c[BKTV]", "color: green", "Chat is here !");
+                editChat();
+                bigEmotes();
+            });
+        } catch (error) {
+            console.error("%c[BKTV]", "color: green", "Error during initialization: ", error.message);
             location.reload();
-        });
+        }
     }
 };
