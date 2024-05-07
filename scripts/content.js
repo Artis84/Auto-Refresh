@@ -32,7 +32,7 @@ document.onreadystatechange = () => {
             const unfollowButton = document.querySelector("#main-view > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div > div > div > button:nth-child(3)");
 
             //------------------------------------------------------------------------------------------------------------------------------
-
+            if (!bottomChannel) return;
             console.log("%c[BKTV]", "color: green", "Initialize extension");
 
             // Top Navigation bar
@@ -167,7 +167,7 @@ document.onreadystatechange = () => {
 
         try {
             waitForElm("#main-view > div > div > div > div > div:nth-child(even) > div > div > div > div > div").then(() => {
-                console.log("%c[BKTV]", "color: green", "Chat is here !");
+                console.log("%c[BKTV]", "color: green", "Page up!");
                 editChat();
                 bigEmotes();
             });
